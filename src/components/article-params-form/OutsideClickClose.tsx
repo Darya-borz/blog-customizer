@@ -1,13 +1,13 @@
 import { RefObject, useEffect, useRef } from 'react';
 
 type UseOutsideClickClose = {
-	isOpen: boolean;
+	isMenuOpen: boolean;
 	onClose: () => void;
 	rootRef: RefObject<HTMLDivElement>;
 };
 
 export const useOutsideClickClose = ({
-	isOpen,
+	isMenuOpen,
 	onClose,
 	rootRef,
 }: UseOutsideClickClose) => {
@@ -16,7 +16,7 @@ export const useOutsideClickClose = ({
 	useEffect(() => {
 		const handleClick = () => {
 			if (!isContain.current) {
-				isOpen && onClose?.();
+				isMenuOpen && onClose?.();
 			} else {
 				isContain.current = false;
 			}
@@ -35,5 +35,5 @@ export const useOutsideClickClose = ({
 			rootRef.current?.removeEventListener('click', handleContainCheck);
 			window.removeEventListener('click', handleClick);
 		};
-	}, [isOpen, onClose]);
+	}, [isMenuOpen, onClose]);
 };

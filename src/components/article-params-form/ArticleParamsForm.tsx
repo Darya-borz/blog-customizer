@@ -24,12 +24,12 @@ type Props = {
 };
 
 export const ArticleParamsForm = ({ onChange }: Props) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [params, setParams] = useState(defaultArticleState);
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	function handleToggleMenu() {
-		setIsOpen((isOpen) => !isOpen);
+		setIsMenuOpen((isOpen) => !isOpen);
 	}
 
 	function handleOptionChange(key: string, option: OptionType) {
@@ -47,16 +47,19 @@ export const ArticleParamsForm = ({ onChange }: Props) => {
 	}
 
 	useOutsideClickClose({
-		isOpen,
+		isMenuOpen,
 		onClose: handleToggleMenu,
 		rootRef: containerRef,
 	});
 
 	return (
 		<div ref={containerRef}>
-			<ArrowButton isOpen={isOpen} onClick={handleToggleMenu} />
+			<ArrowButton isOpen={isMenuOpen} onClick={handleToggleMenu} />
 			<aside
-				className={clsx(styles.container, isOpen ? styles.container_open : '')}>
+				className={clsx(
+					styles.container,
+					isMenuOpen ? styles.container_open : ''
+				)}>
 				<form
 					className={styles.form}
 					onSubmit={handleSubmitOptions}
